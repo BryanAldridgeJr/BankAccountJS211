@@ -6,19 +6,25 @@ class BankAccount {
     }
   
     balance() {
-      let totalBalance = 0;
-      for (const transaction of this.transactions) {
-        totalBalance += transaction.amount;
-      }
-      return totalBalance;
+        let totalBalance = 0;
+        for (const transaction of this.transactions) {
+          totalBalance += transaction.amount;
+        }
+        return totalBalance;
     }
     deposit(amt) {
+        const transaction = new Transaction(amt, "Deposit");
+        this.transactions.push(transaction);
         return amt + this.balance();
-    };
-    charge(payee, amt) {
+      }
+      
+      charge(payee, amt) {
+        const transaction = new Transaction(-amt, payee);
+        this.transactions.push(transaction);
         return this.balance() - amt;
-    };
+      }
 };
+
 
 class Transaction {
     constructor(amount, payee) {
@@ -30,8 +36,8 @@ class Transaction {
 
 const account = new BankAccount("321", "Bryan Aldridge")
 
-console.log(account.balance());
-console.log(account.deposit(500));
-console.log(account.balance());
-console.log(account.charge('582', 200));
-console.log(account.balance());
+console.log(`$${account.balance()}`);
+account.deposit(500);
+console.log(`$${account.balance()}`);
+account.charge('582', 200);
+console.log(`$${account.balance()}`);
