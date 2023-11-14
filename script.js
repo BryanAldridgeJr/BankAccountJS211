@@ -3,7 +3,7 @@ class BankAccount {
       this.accountNumber = accountNumber;
       this.owner = owner;
       this.transactions = [];
-    }
+    };
   
     balance() {
         let totalBalance = 0;
@@ -11,18 +11,17 @@ class BankAccount {
           totalBalance += transaction.amount;
         }
         return totalBalance;
-    }
+    };
     deposit(amt) {
         const transaction = new Transaction(amt, "Deposit");
         this.transactions.push(transaction);
         return amt + this.balance();
-      }
-      
-      charge(payee, amt) {
+    };  
+    charge(payee, amt) {
         const transaction = new Transaction(-amt, payee);
         this.transactions.push(transaction);
         return this.balance() - amt;
-      }
+    };
 };
 
 
